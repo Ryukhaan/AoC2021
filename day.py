@@ -2,20 +2,21 @@ import os
 import sys
 import copy
 import numpy as np 
+import time
 from collections import defaultdict
 
 import input_reader as io
-
+				
 def day_1():
 	def readline(idx, line, **kwargs):
 		kwargs["depths"].append(int(line))
 		return kwargs
 
 	def first_solver(data):
-		return sum([ (data[i+1] - data[i]) > 0 for i in range(len(data)-1)])
+		return sum( [(data[i+1] - data[i]) > 0 for i in range(len(data)-1)] )
 
 	def second_solver(data, ksize=3):
-		mean_k = [sum(data[i:i+ksize]) for i in range(len(data)-ksize+1)]
+		mean_k = [ sum(data[i:i+ksize]) for i in range(len(data)-ksize+1) ]
 		return first_solver(mean_k)
 
 	data = {"depths" : list([])}
@@ -226,7 +227,6 @@ def day_5():
 				for j in range(x1-x2+1):
 					accumulation[y1-j, x1-j] += 1
 		return len( np.argwhere(accumulation >= 2) )
-
 
 	data = {"X" : list([]), "Y" : list([])}
 	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
