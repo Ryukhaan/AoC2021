@@ -6,9 +6,6 @@ from collections import defaultdict
 
 import input_reader as io
 
-def abstract_day(first_solver, second_solver, data):
-	return first_solver(data), second_solver(data)
-
 def day_1():
 	def readline(idx, line, **kwargs):
 		kwargs["depths"].append(int(line))
@@ -18,14 +15,14 @@ def day_1():
 		return sum([ (data[i+1] - data[i]) > 0 for i in range(len(data)-1)])
 
 	def second_solver(data, ksize=3):
-		slides = [sum(data[i:i+ksize]) for i in range(len(data)-ksize+1)]
-		return first_solver(slides)
+		mean_k = [sum(data[i:i+ksize]) for i in range(len(data)-ksize+1)]
+		return first_solver(mean_k)
 
 	data = {"depths" : list([])}
 	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
-	return abstract_day(first_solver, second_solver, data["depths"])
+	return first_solver(data["depths"]), second_solver(data["depths"]), "Sonar Sweep"
 
 def day_2():
 	command = {"forward" : 1, "up" : -1, "down" : 1}
@@ -57,7 +54,7 @@ def day_2():
 	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
-	return abstract_day(first_solver, second_solver, data["actions"])
+	return first_solver(data["actions"]), second_solver(data["actions"]), "Dive!"
 
 def day_3():
 	def readline(idx, line, **kwargs):
@@ -95,7 +92,7 @@ def day_3():
 	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
-	return abstract_day(first_solver, second_solver, data["binaries"])
+	return first_solver(data["binaries"]), second_solver(data["binaries"]), "Binary Diagnostic"
 
 def day_4():
 	def readline(idx, line, **kwargs):
@@ -171,7 +168,7 @@ def day_4():
 	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
-	return abstract_day(first_solver, second_solver, data)
+	return first_solver(data), second_solver(data), "Giant Squid"
 
 def day_5():
 	def readline(idx, line, **kwargs):
@@ -235,4 +232,4 @@ def day_5():
 	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
-	return abstract_day(first_solver, second_solver, data)
+	return first_solver(data), second_solver(data), "Hydrothermal Venture"
