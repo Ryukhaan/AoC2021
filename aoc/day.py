@@ -5,7 +5,7 @@ import numpy as np
 import time
 from collections import defaultdict
 
-import input_reader as io
+from .cli import read_file
 				
 def day_1():
 	def readline(idx, line, **kwargs):
@@ -19,7 +19,7 @@ def day_1():
 		return first_solver( np.convolve( data, np.ones(ksize), 'valid') )
 
 	data = {"depths" : list([])}
-	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
+	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
 	return first_solver(data["depths"]), second_solver(data["depths"]), "Sonar Sweep"
@@ -51,7 +51,7 @@ def day_2():
 		return position * depth
 
 	data = {"actions" : list([])}
-	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
+	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
 	return first_solver(data["actions"]), second_solver(data["actions"]), "Dive!"
@@ -88,7 +88,7 @@ def day_3():
 		return oxygen_level * co2_level
 
 	data = {"binaries" : list([])}
-	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
+	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
 	return first_solver(data["binaries"]), second_solver(data["binaries"]), "Binary Diagnostic"
@@ -164,7 +164,7 @@ def day_4():
 		return total * num
 
 	data = {"numbers" : list([]), "bingos" : list([]), "bingo" : list([])}
-	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
+	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
 	return first_solver(data), second_solver(data), "Giant Squid"
@@ -215,7 +215,7 @@ def day_5():
 		return len( np.argwhere(accumulation >= 2) )
 
 	data = {"X" : list([]), "Y" : list([])}
-	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
+	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
 	res, acc = first_solver(data)
@@ -242,7 +242,7 @@ def day_6():
 		return sum(Mn.dot(lanternfishes.transpose()))
 
 	data = {"lanternfish" : list([]) }
-	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
+	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
 	return solver(data["lanternfish"], 80), solver(data["lanternfish"], 256), "Lanternfish"
