@@ -20,7 +20,7 @@ def make_markdown(**kwargs):
 									"", '^', space_col,
 									"Results", "^", space_col,
 									"", "^", space_col))
-	text.append("|-----:|:----------:|:--------:|-----------:|")
+	text.append("|:-----:|:----------:|:--------:|-----------:|")
 	text.append( row_string.format("", "^", space_col,
 		"Puzzle 1", "^", space_col,
 		"Puzzle 2", "^", space_col,
