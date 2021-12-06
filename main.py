@@ -10,7 +10,7 @@ import upsidedown
 
 def make_markdown(**kwargs):
 	header_str = "|  {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
-	row_string = "| ʕノ•ᴥ•ʔノ {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
+	row_string = "| ʕノ•ᴥ•ʔノ | {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
 	result_filename = './README.md'
 
 	space_col = 20
