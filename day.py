@@ -236,22 +236,23 @@ def day_5():
 
 def day_6():
 	def readline(idx, line, **kwargs):
-		kwargs["lanternfish"] = np.array(line.rsplit(','), dtype=np.int8)
+		kwargs["lanternfish"] = np.array(line.rsplit(','))
 		return kwargs
 
 	def solver(data, i):
-		lanternfishes = [0] * 9
-		for value in data:
-			lanternfishes[value] += 1 
-		for _ in range(i):
-			num_news = lanternfishes[0]
-			tmp = copy.copy(lanternfishes)
-			for i in range(8,0,-1):
-				tmp[i-1] = lanternfishes[i]
-			tmp[6] = tmp[6] + lanternfishes[0]
-			tmp[8] = num_news
-			lanternfishes = tmp
-		return sum ( lanternfishes )
+		M = np.array([[0,1,0,0,0,0,0,0,0],
+					  [0,0,1,0,0,0,0,0,0],
+					  [0,0,0,1,0,0,0,0,0],
+					  [0,0,0,0,1,0,0,0,0],
+					  [0,0,0,0,0,1,0,0,0],
+					  [0,0,0,0,0,0,1,0,0],
+					  [1,0,0,0,0,0,0,1,0],
+					  [0,0,0,0,0,0,0,0,1],
+					  [1,0,0,0,0,0,0,0,0]], dtype=object)
+		Mn = np.linalg.matrix_power(M, i)
+		lanternfishes, _ = np.histogram(data, bins=range(0,10))
+		lanternfishes = np.array(lanternfishes, dtype=object)
+		return sum(Mn.dot(lanternfishes.transpose()))
 
 	data = {"lanternfish" : list([]) }
 	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
