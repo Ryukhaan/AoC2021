@@ -8,6 +8,33 @@ import day
 
 import upsidedown
 
+def make_markdown(**kwargs):
+	header_str = "|  {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
+	d_name_str = "| ʕノ•ᴥ•ʔノ {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
+	row_string = "|  {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
+	result_filename = './README.md'
+
+	space_col = 20
+	text = []
+	text.append( header_str.format("Day", '^', space_col,
+									"", '^', space_col,
+									"Results", "^", space_col,
+									"", "^", space_col))
+	text.append("|:-----:|----------|:--------:|-----------|")
+	for idx, (key, value) in enumerate(kwargs.items()):
+		day_number = key.split('_')[1]
+		day_str = upsidedown.transform("Day " + day_number)
+		text.append( d_name_str.format(day_str, '<', space_col, 
+									   '', '>', space_col,
+									   '', '>', space_col,
+									   '', '>', space_col) )
+		text.append( row_string.format(value["Name"], '>', space_col, 
+									value["Puzzle 1"], '^', space_col,
+									value["Puzzle 2"], '^', space_col,
+									value["Time (ms)"], '^', space_col) )
+	with open( result_filename, 'w') as file:
+		file.write( "\n".join(text) )
+
 def make_table(**kwargs):
 	header_str = "| {: {}{}} | {: {}{}} |"
 	column_str = "| {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
@@ -16,7 +43,6 @@ def make_table(**kwargs):
 	text = []
 	maximum_len = 107
 	espace_column = (maximum_len - 7)//4
-	result_filename = './README.md'
 	n_tiret = "─"* espace_column
 
 	v_line = "|" + "·"* espace_column + "├" + n_tiret + ("┼" + n_tiret)*2 + "┤"
@@ -50,8 +76,6 @@ def make_table(**kwargs):
 	# Footer
 	text.append("└" + n_tiret + ("┴" + n_tiret)*3 + "┘")
 	text = '\n'.join(text)
-	with open( result_filename, 'w') as file:
-		file.write(text)
 	print( text )
 
 
@@ -70,6 +94,7 @@ def main():
 				puzzles[function]["Name"] 		= f_name
 				puzzles[function]["Time (ms)"] 	= str(time.time_ns()/1e6 - start)
 	make_table(**puzzles)
+	make_markdown(**puzzles)
 
 if __name__ == '__main__':
 	main()
