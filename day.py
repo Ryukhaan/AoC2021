@@ -233,3 +233,28 @@ def day_5():
 		readline, 
 		**data)
 	return first_solver(data), second_solver(data), "Hydrothermal Venture"
+
+def day_6():
+	def readline(idx, line, **kwargs):
+		kwargs["lanternfish"] = np.array(line.rsplit(','), dtype=np.int8)
+		return kwargs
+
+	def solver(data, i):
+		lanternfishes = [0] * 9
+		for value in data:
+			lanternfishes[value] += 1 
+		for _ in range(i):
+			num_news = lanternfishes[0]
+			tmp = copy.copy(lanternfishes)
+			for i in range(8,0,-1):
+				tmp[i-1] = lanternfishes[i]
+			tmp[6] = tmp[6] + lanternfishes[0]
+			tmp[8] = num_news
+			lanternfishes = tmp
+		return sum ( lanternfishes )
+
+	data = {"lanternfish" : list([]) }
+	data = io.read_file(os.path.basename(sys._getframe().f_code.co_name),
+		readline, 
+		**data)
+	return solver(data["lanternfish"], 80), solver(data["lanternfish"], 256), "Lanternfish"

@@ -46,8 +46,8 @@ def make_table(**kwargs):
 	# Footer
 	text.append("└" + n_tiret + "┴" + n_tiret + "┴" + n_tiret + "┘")
 	text = '\n'.join(text)
-	with open( result_filename, 'w') as file:
-		file.write(text)
+	#with open( result_filename, 'w') as file:
+	#	file.write(text)
 	print( text )
 
 
