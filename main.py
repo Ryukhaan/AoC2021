@@ -16,7 +16,7 @@ def make_table(**kwargs):
 	text = []
 	maximum_len = 107
 	espace_column = (maximum_len - 7)//4
-	result_filename = './results.md'
+	result_filename = './README.md'
 	n_tiret = "─"* espace_column
 
 	v_line = "|" + "·"* espace_column + "├" + n_tiret + ("┼" + n_tiret)*2 + "┤"
