@@ -16,7 +16,7 @@ def make_table(**kwargs):
 	text = []
 	maximum_len = 107
 	espace_column = (maximum_len - 7)//4
-	result_filename = './results.txt'
+	result_filename = './results.md'
 	n_tiret = "─"* espace_column
 
 	v_line = "|" + "·"* espace_column + "├" + n_tiret + ("┼" + n_tiret)*2 + "┤"
@@ -50,8 +50,8 @@ def make_table(**kwargs):
 	# Footer
 	text.append("└" + n_tiret + ("┴" + n_tiret)*3 + "┘")
 	text = '\n'.join(text)
-	#with open( result_filename, 'w') as file:
-	#	file.write(text)
+	with open( result_filename, 'w') as file:
+		file.write(text)
 	print( text )
 
 
