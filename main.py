@@ -16,14 +16,14 @@ def make_markdown(**kwargs):
 	space_col = 20
 	text = []
 	text.append( header_str.format("Day", '^', space_col,
-									"", '^', space_col,
-									"Results", "^", space_col,
-									"", "^", space_col))
+									"Puzzle 1", '^', space_col,
+									"Puzzle 2", "^", space_col,
+									"Time (ms)", "^", space_col))
 	text.append("|:-----:|:----------:|:--------:|-----------:|")
-	text.append( header_str.format("", "^", space_col,
-		"Puzzle 1", "^", space_col,
-		"Puzzle 2", "^", space_col,
-		"Time (ms)", "^", space_col))
+	# text.append( header_str.format("", "^", space_col,
+	# 	"Puzzle 1", "^", space_col,
+	# 	"Puzzle 2", "^", space_col,
+	# 	"Time (ms)", "^", space_col))
 
 	for idx, (key, value) in enumerate(kwargs.items()):
 		day_number = key.split('_')[1]
