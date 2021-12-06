@@ -10,7 +10,7 @@ import upsidedown
 
 def make_markdown(**kwargs):
 	header_str = "|  {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
-	row_string = "| ʕノ•ᴥ•ʔノ | {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
+	row_string = "| ʕノ•ᴥ•ʔノ {: {}{}} | {: {}{}} | {: {}{}} | {: {}{}} |"
 	result_filename = './README.md'
 
 	space_col = 20
@@ -32,7 +32,7 @@ def make_markdown(**kwargs):
 		# 							   '', '>', space_col,
 		# 							   '', '>', space_col,
 		# 							   '', '>', space_col) )
-		text.append( row_string.format(upsidedown.transform(value["Name"]), '>', space_col, 
+		text.append( row_string.format(upsidedown.transform(value["Name"]), '<', space_col, 
 									value["Puzzle 1"], '^', space_col,
 									value["Puzzle 2"], '^', space_col,
 									value["Time (ms)"], '^', space_col) )
