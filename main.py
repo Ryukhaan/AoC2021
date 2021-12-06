@@ -19,7 +19,7 @@ def make_markdown(**kwargs):
 									"Puzzle 1", '^', space_col,
 									"Puzzle 2", "^", space_col,
 									"Time (ms)", "^", space_col))
-	text.append("|:-----:|:----------:|:--------:|-----------:|")
+	text.append("|:-----|:----------:|:--------:|-----------:|")
 	# text.append( header_str.format("", "^", space_col,
 	# 	"Puzzle 1", "^", space_col,
 	# 	"Puzzle 2", "^", space_col,
