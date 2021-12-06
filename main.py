@@ -29,11 +29,11 @@ def make_markdown(**kwargs):
 	for idx, (key, value) in enumerate(kwargs.items()):
 		day_number = key.split('_')[1]
 		day_str = upsidedown.transform("Day " + day_number)
-		text.append( d_name_str.format(day_str, '<', space_col, 
-									   '', '>', space_col,
-									   '', '>', space_col,
-									   '', '>', space_col) )
-		text.append( row_string.format(value["Name"], '>', space_col, 
+		# text.append( d_name_str.format(day_str, '<', space_col, 
+		# 							   '', '>', space_col,
+		# 							   '', '>', space_col,
+		# 							   '', '>', space_col) )
+		text.append( row_string.format(upsidedown.transform(value["Name"]), '>', space_col, 
 									value["Puzzle 1"], '^', space_col,
 									value["Puzzle 2"], '^', space_col,
 									value["Time (ms)"], '^', space_col) )
