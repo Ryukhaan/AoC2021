@@ -240,6 +240,7 @@ def day_6():
 		return kwargs
 
 	def solver(data, i):
+		start = time.time_ns() / 1e6
 		M = np.array([[0,1,0,0,0,0,0,0,0],
 					  [0,0,1,0,0,0,0,0,0],
 					  [0,0,0,1,0,0,0,0,0],
@@ -252,6 +253,7 @@ def day_6():
 		Mn = np.linalg.matrix_power(M, i)
 		lanternfishes, _ = np.histogram(data, bins=range(0,10))
 		lanternfishes = np.array(lanternfishes, dtype=object)
+		print(time.time_ns()/1e6 - start)
 		return sum(Mn.dot(lanternfishes.transpose()))
 
 	data = {"lanternfish" : list([]) }
