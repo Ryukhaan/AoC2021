@@ -246,3 +246,25 @@ def day_6():
 		readline, 
 		**data)
 	return solver(data["lanternfish"], 80), solver(data["lanternfish"], 256), "Lanternfish"
+
+def day_7():
+
+	def readline(idx, line, **kwargs):
+		kwargs["crabs"] = np.array(line.rsplit(','), dtype=np.int32)
+		return kwargs
+
+	def first_solver(data):
+		x_n = int(np.median( data ))
+		return sum ( abs(data - x_n) )
+
+	def second_solver(data):
+		xmean = np.mean( data )
+		d = abs( data - xmean )
+		return sum( d*(d+1)//2 )
+
+	data = {"crabs" : list([]) }
+	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
+		readline, 
+		**data)
+	data = data["crabs"]
+	return first_solver(data), second_solver(data), "The Treachery of Whales"
