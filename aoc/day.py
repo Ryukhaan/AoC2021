@@ -4,7 +4,7 @@ import copy
 import numpy as np 
 import time
 from collections import defaultdict
-
+import timeit
 from .cli import read_file
 				
 def day_1():
@@ -26,6 +26,7 @@ def day_1():
 
 def day_2():
 	command = {"forward" : 1, "up" : -1, "down" : 1}
+
 	def readline(idx, line, **kwargs):
 		action, x = line.split(' ')
 		kwargs["actions"].append((action, int(x)))
@@ -34,10 +35,10 @@ def day_2():
 	def first_solver(data):
 		position = sum([value for action, value in data if action == "forward"])
 		depth 	 = sum([command[action] * value for action, value in data if action in ["up","down"]])
-		return position * depth
+		return position * depth, position
 
-	def second_solver(data):
-		position 	= 0
+	def second_solver(data, position):
+		#position 	= 0
 		depth 		= 0
 		aim 		= 0
 		for action, value in data:
@@ -46,7 +47,7 @@ def day_2():
 			if action == "down":
 				aim += value
 			if action == "forward":
-				position += value
+				#position += value
 				depth += value * aim
 		return position * depth
 
@@ -54,7 +55,9 @@ def day_2():
 	data = read_file(os.path.basename(sys._getframe().f_code.co_name),
 		readline, 
 		**data)
-	return first_solver(data["actions"]), second_solver(data["actions"]), "Dive!"
+	data = data["actions"]
+	res, acc = first_solver(data)
+	return res, second_solver(data, acc), "Dive!"
 
 def day_3():
 	def readline(idx, line, **kwargs):
@@ -69,20 +72,23 @@ def day_3():
 		return gamma_rate * epsilon_rate
 
 	def second_solver(data):
-		numbits = len(data[0])
-		oxygen_ = data
-		co2_    = data
-		for i in range(0, numbits):
-			most_common = np.mean([binary[i] for binary in oxygen_])
+		oxygen_ = np.array(data)
+		co2_    = np.array(data)
+		i = 0
+		while (len(oxygen_) > 1):
+			bits_i = oxygen_[:,i]
+			most_common = np.mean( bits_i )
 			most_common = most_common >= 0.5 or 0
-			oxygen_ = list(filter(lambda x: x[i]==most_common, oxygen_))
-			if len(oxygen_) == 1: break
-		for i in range(0, numbits):
-			most_common = np.mean([binary[i] for binary in co2_])
+			oxygen_ = oxygen_[ np.where( bits_i==most_common ) ]
+			i = i + 1
+		i = 0
+		while (len(co2_) > 1):
+			bits_i =  co2_[:,i]
+			most_common = np.mean( bits_i )
 			most_common = most_common < 0.5 or 0
-			co2_ = list(filter(lambda x: x[i]==most_common, co2_))
-			if len(co2_) == 1: break
-		bitpack = 2**np.arange(numbits)[::-1]
+			co2_ = co2_[ np.where( bits_i==most_common ) ]
+			i = i + 1
+		bitpack = 2**np.arange(len(data[0]))[::-1]
 		oxygen_level = oxygen_[0].dot(bitpack)
 		co2_level = co2_[0].dot(bitpack)
 		return oxygen_level * co2_level
@@ -258,7 +264,7 @@ def day_7():
 		return sum ( abs(data - x_n) )
 
 	def second_solver(data):
-		xmean = np.mean( data )
+		xmean = int(np.mean( data ))
 		d = abs( data - xmean )
 		return sum( d*(d+1)//2 )
 
